@@ -11,3 +11,8 @@ Step 2: Open the app (trainer)
 Step 3: Just edit the value on the app and click on "Set"
 
 Step 4: That's it. ENJOY!!
+
+SCREENSHOT BELOW:
+
+
+<img width="294" alt="Capture" src="https://github.com/AadityaKandel/HILL-CLIMB-RACING-TRAINER-2/assets/71229713/b5870ee2-efd3-4f26-8529-9e05704fe2b9">
