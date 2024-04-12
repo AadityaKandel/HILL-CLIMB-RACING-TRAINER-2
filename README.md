@@ -3,7 +3,11 @@ This is the trainer of Hill Climb Racing and it grants you free modification to 
 
 # HOW TO USE?
 Step 1: Open the game
+
 Step 2: Open the app (trainer)
+
 (The trainer will automatically show you the coind & diamonds you currently have)
+
 Step 3: Just edit the value on the app and click on "Set"
+
 Step 4: That's it. ENJOY!!
