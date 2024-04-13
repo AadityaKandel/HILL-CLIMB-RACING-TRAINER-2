@@ -18,6 +18,14 @@ www.github.com/AADITYAKANDEL
 '''
 font="comicsansms 11 bold"
 
+# Special Variables Part 1
+coin_var = IntVar()
+diamond_var = IntVar()
+game=None
+rm = ReadWriteMemory()
+idiot="That's too big!! YOU IDIOT!!"
+maximum=999999999
+
 # Customizing The Root
 root.minsize(400,200)
 root.maxsize(400,200)
@@ -31,14 +39,8 @@ def find_process():
 		game.open()
 		return True
 	except:
-		return False
-
-def detect_process():
-	if find_process() == False:
 		tmsg.showwarning('Warning',not_found)
-		exit()
-	else:
-		pass
+		return False
 
 def get_base_address(process_name):
 
@@ -51,7 +53,7 @@ def get_base_address(process_name):
 			pass
 
 	if pid==None:
-		detect_process()
+		return 0x0
 
 	process_name = process_name  # Replace with the actual process name
 	process_access = win32con.PROCESS_QUERY_INFORMATION | win32con.PROCESS_VM_READ
@@ -63,16 +65,10 @@ def get_base_address(process_name):
 
 	return base_addresss
 
-# Getting Base Address & Defining Special Variables
+# Special Variables Part 2
 base_address=get_base_address("HillClimbRacing.exe")
-coin_var = IntVar()
-diamond_var = IntVar()
-game=None
-rm = ReadWriteMemory()
 coins=base_address+0x28CAD4
 diamonds=base_address+0x28CAEC
-idiot="That's too big!! YOU IDIOT!!"
-maximum=999999999
 
 
 # Continue Writing Functions
@@ -145,8 +141,10 @@ f2.pack(anchor=N)
 root.config(bg="black")
 
 # Running Required Functions
-detect_process() # Not needed since detecting the process already happens above but kept it here just "IN CASE!!"
-find_coins()
-find_diamonds()
+if find_process() == False: # Not needed since detecting the process already happens above but kept it here just "IN CASE!!"
+	root.destroy()
+else:
+	find_coins()
+	find_diamonds()
 
 root.mainloop()
