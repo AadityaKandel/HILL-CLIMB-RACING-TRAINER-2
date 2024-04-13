@@ -141,7 +141,7 @@ f2.pack(anchor=N)
 root.config(bg="black")
 
 # Running Required Functions
-if find_process() == False: # Not needed since detecting the process already happens above but kept it here just "IN CASE!!"
+if find_process() == False: # Needed for detecting if the process is running or not
 	root.destroy()
 else:
 	find_coins()
