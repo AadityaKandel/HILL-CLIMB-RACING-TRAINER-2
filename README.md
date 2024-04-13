@@ -16,3 +16,6 @@ SCREENSHOT BELOW:
 
 
 <img width="294" alt="Capture" src="https://github.com/AadityaKandel/HILL-CLIMB-RACING-TRAINER-2/assets/71229713/b5870ee2-efd3-4f26-8529-9e05704fe2b9">
+
+
+There was one hell of a complexity which I discovered the night that I uploaded this app. The coin value & the diamond value address never changes but the base address changed everytime you uninstall and install the game again. That was amazing. I did a lot of research and after sometime, I found a way to find track the base address each time the game is re-installed. Now, it works even after you uninstall & install the game. For now, I have not made the exe file but I will upload it in no time. Thanks
