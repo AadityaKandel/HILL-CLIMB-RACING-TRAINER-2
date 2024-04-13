@@ -1,9 +1,13 @@
 from tkinter import *
 import tkinter.messagebox as tmsg
 from ReadWriteMemory import ReadWriteMemory
+import win32api
+import win32process
+import win32con
+import os
 
 root = Tk()
-root.iconbitmap('Icon/icon.ico')
+#root.iconbitmap('Icon/icon.ico')
 
 # Variables
 name="HILL CLIMB RACING"
@@ -13,17 +17,7 @@ info=f'''{name} TRAINER BY
 www.github.com/AADITYAKANDEL
 '''
 font="comicsansms 11 bold"
-
-# Special Variables
-coin_var = IntVar()
-diamond_var = IntVar()
-game=None
-rm = ReadWriteMemory()
-base_address=0x00C20000
-coins=base_address+0x28CAD4
-diamonds=base_address+0x28CAEC
-idiot="That's too big!! YOU IDIOT!!"
-maximum=999999999
+pid = ""
 
 # Customizing The Root
 root.minsize(400,200)
@@ -31,6 +25,48 @@ root.maxsize(400,200)
 root.title(f"{name} Trainer +2")
 
 # Functions
+def get_base_address(process_name):
+
+	global pid,base_address
+
+	os.system(f'tasklist /fi "imagename eq {process_name}" > hello.txt')
+	f = open('hello.txt','r')
+	text = f.read()
+	initial = text.index('HillClimbRacing.exe')
+	finall = text.index('Console')
+	total = text[initial:finall]
+
+	for x in total:
+		if x.isnumeric() == True:
+			pid+=x
+		else:
+			pass
+
+	f.close()
+
+
+
+	process_name = process_name  # Replace with the actual process name
+	process_access = win32con.PROCESS_QUERY_INFORMATION | win32con.PROCESS_VM_READ
+	process_handle = win32api.OpenProcess(process_access, False, int(pid))
+
+	base_addresss = win32process.EnumProcessModules(process_handle)[0]
+
+	win32api.CloseHandle(process_handle)
+
+	return base_addresss
+
+# Getting Base Address & Defining Special Variables
+base_address=get_base_address("hillclimbracing.exe")
+coin_var = IntVar()
+diamond_var = IntVar()
+game=None
+rm = ReadWriteMemory()
+coins=base_address+0x28CAD4
+diamonds=base_address+0x28CAEC
+idiot="That's too big!! YOU IDIOT!!"
+maximum=999999999
+
 def check_if_numeric():
 	try:
 		add=coin_var.get()+diamond_var.get()
