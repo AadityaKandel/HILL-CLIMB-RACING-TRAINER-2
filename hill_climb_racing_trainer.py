@@ -4,7 +4,7 @@ from ReadWriteMemory import ReadWriteMemory
 import win32api
 import win32process
 import win32con
-import os
+import psutil
 
 root = Tk()
 root.iconbitmap('Icon/icon.ico')
@@ -24,55 +24,6 @@ root.maxsize(400,200)
 root.title(f"{name} Trainer +2")
 
 # Functions
-def get_base_address(process_name):
-
-	pid=''
-
-	os.system(f'tasklist /fi "imagename eq {process_name}" > data.txt')
-	f = open('data.txt','r')
-	text = f.read()
-	initial = text.index('HillClimbRacing.exe')
-	finall = text.index('Console')
-	total = text[initial:finall]
-
-	for x in total:
-		if x.isnumeric() == True:
-			pid+=x
-		else:
-			pass
-
-	f.close()
-
-
-
-	process_name = process_name  # Replace with the actual process name
-	process_access = win32con.PROCESS_QUERY_INFORMATION | win32con.PROCESS_VM_READ
-	process_handle = win32api.OpenProcess(process_access, False, int(pid))
-
-	base_addresss = win32process.EnumProcessModules(process_handle)[0]
-
-	win32api.CloseHandle(process_handle)
-
-	return base_addresss
-
-# Getting Base Address & Defining Special Variables
-base_address=get_base_address("hillclimbracing.exe")
-coin_var = IntVar()
-diamond_var = IntVar()
-game=None
-rm = ReadWriteMemory()
-coins=base_address+0x28CAD4
-diamonds=base_address+0x28CAEC
-idiot="That's too big!! YOU IDIOT!!"
-maximum=999999999
-
-def check_if_numeric():
-	try:
-		add=coin_var.get()+diamond_var.get()
-	except:
-		tmsg.showwarning('Warning','Invalid Input')
-		return False
-
 def find_process():
 	global game
 	try:
@@ -85,9 +36,52 @@ def find_process():
 def detect_process():
 	if find_process() == False:
 		tmsg.showwarning('Warning',not_found)
-		root.destroy()
+		exit()
 	else:
 		pass
+
+def get_base_address(process_name):
+
+	pid=None
+
+	for proc in psutil.process_iter(['name']):
+		if proc.info['name'] == process_name:
+			pid=proc.pid
+		else:
+			pass
+
+	if pid==None:
+		detect_process()
+
+	process_name = process_name  # Replace with the actual process name
+	process_access = win32con.PROCESS_QUERY_INFORMATION | win32con.PROCESS_VM_READ
+	process_handle = win32api.OpenProcess(process_access, False, pid)
+
+	base_addresss = win32process.EnumProcessModules(process_handle)[0]
+
+	win32api.CloseHandle(process_handle)
+
+	return base_addresss
+
+# Getting Base Address & Defining Special Variables
+base_address=get_base_address("HillClimbRacing.exe")
+coin_var = IntVar()
+diamond_var = IntVar()
+game=None
+rm = ReadWriteMemory()
+coins=base_address+0x28CAD4
+diamonds=base_address+0x28CAEC
+idiot="That's too big!! YOU IDIOT!!"
+maximum=999999999
+
+
+# Continue Writing Functions
+def check_if_numeric():
+	try:
+		add=coin_var.get()+diamond_var.get()
+	except:
+		tmsg.showwarning('Warning','Invalid Input')
+		return False
 
 def find_coins():
 	coin_value = game.read(coins)
@@ -151,7 +145,7 @@ f2.pack(anchor=N)
 root.config(bg="black")
 
 # Running Required Functions
-detect_process()
+detect_process() # Not needed since detecting the process already happens above but kept it here just "IN CASE!!"
 find_coins()
 find_diamonds()
 
