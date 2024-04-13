@@ -7,7 +7,7 @@ import win32con
 import os
 
 root = Tk()
-#root.iconbitmap('Icon/icon.ico')
+root.iconbitmap('Icon/icon.ico')
 
 # Variables
 name="HILL CLIMB RACING"
@@ -17,7 +17,6 @@ info=f'''{name} TRAINER BY
 www.github.com/AADITYAKANDEL
 '''
 font="comicsansms 11 bold"
-pid = ""
 
 # Customizing The Root
 root.minsize(400,200)
@@ -27,10 +26,10 @@ root.title(f"{name} Trainer +2")
 # Functions
 def get_base_address(process_name):
 
-	global pid,base_address
+	pid=''
 
-	os.system(f'tasklist /fi "imagename eq {process_name}" > hello.txt')
-	f = open('hello.txt','r')
+	os.system(f'tasklist /fi "imagename eq {process_name}" > data.txt')
+	f = open('data.txt','r')
 	text = f.read()
 	initial = text.index('HillClimbRacing.exe')
 	finall = text.index('Console')
