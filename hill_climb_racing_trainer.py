@@ -1,13 +1,11 @@
 from tkinter import *
 import tkinter.messagebox as tmsg
 from ReadWriteMemory import ReadWriteMemory
-import win32api
-import win32process
-import win32con
-import psutil
+import pymem
+from pymem.process import *
 
 root = Tk()
-root.iconbitmap('Icon/icon.ico')
+#root.iconbitmap('Icon/icon.ico')
 
 # Variables
 name="HILL CLIMB RACING"
@@ -43,27 +41,11 @@ def find_process():
 		return False
 
 def get_base_address(process_name):
-
-	pid=None
-
-	for proc in psutil.process_iter(['name']):
-		if proc.info['name'] == process_name:
-			pid=proc.pid
-		else:
-			pass
-
-	if pid==None:
+	try:
+		pm = pymem.Pymem(f"{process_name}")
+		return module_from_name(pm.process_handle, f"{process_name}").lpBaseOfDll
+	except:
 		return 0x0
-
-	process_name = process_name  # Replace with the actual process name
-	process_access = win32con.PROCESS_QUERY_INFORMATION | win32con.PROCESS_VM_READ
-	process_handle = win32api.OpenProcess(process_access, False, pid)
-
-	base_addresss = win32process.EnumProcessModules(process_handle)[0]
-
-	win32api.CloseHandle(process_handle)
-
-	return base_addresss
 
 # Special Variables Part 2
 base_address=get_base_address("HillClimbRacing.exe")
