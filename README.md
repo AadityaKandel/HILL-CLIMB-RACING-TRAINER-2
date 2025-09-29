@@ -14,8 +14,17 @@ Step 4: That's it. ENJOY!!
 
 SCREENSHOT BELOW:
 
-
 <img width="294" alt="Capture" src="https://github.com/AadityaKandel/HILL-CLIMB-RACING-TRAINER-2/assets/71229713/b5870ee2-efd3-4f26-8529-9e05704fe2b9">
 
 
-There was one hell of a complexity which I discovered the night that I uploaded this app. The coin value & the diamond value address never changes but the base address changed everytime you uninstall and install the game again. That was amazing. I did a lot of research and after sometime, I found a way to find track the base address each time the game is re-installed. Now, it works even after you uninstall & install the game. For now, I have not made the exe file but I will upload it in no time. Thanks
+# HILL-CLIMB-RACING-TRAINER-2 VERSION 2.0
+It has some additional features like Infinite Fuel, Can Buy More Boosts and Hotkeys. Enjoy!
+
+<img width="713" height="633" alt="image" src="https://github.com/user-attachments/assets/f03e6f0d-1920-4a0b-9773-69cd8363ecc4" />
+
+Note: The infinite fuel mod will take a 4 second delay each time you start a race so it may get annoying. To resolve this annoying issue,
+I have added the hotkey functionality. Just put your favorite button as the shortcut key for infinite fuel and you don't need to come
+back to the application to apply the mod. Enter the race, wait a few seconds or play a few seconds and hit that shortcut key. Viola, Done!
+Thank You..
+
+
